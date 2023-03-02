@@ -81,7 +81,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(
+                context,
+                SearchPage.ROUTE_NAME,
+                arguments: true,
+              );
             },
             icon: Icon(Icons.search),
           )

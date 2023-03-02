@@ -88,7 +88,11 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(
+                context,
+                SearchPage.ROUTE_NAME,
+                arguments: false,
+              );
             },
             icon: Icon(Icons.search),
           )
