@@ -33,10 +33,10 @@ class TvSeriesModel extends Equatable {
   final String originalName;
   final String overview;
   final double popularity;
-  final String posterPath;
+  final dynamic posterPath;
   final double voteAverage;
   final int voteCount;
-  final String backdropPath;
+  final dynamic backdropPath;
 
   factory TvSeriesModel.fromJson(Map<String, dynamic> json) => TvSeriesModel(
         backdropPath: json["backdrop_path"],
@@ -72,7 +72,7 @@ class TvSeriesModel extends Equatable {
 
   TvSeries toEntity() {
     return TvSeries(
-      backdropPath: this.backdropPath,
+      backdropPath: this.backdropPath.toString(),
       firstAirDate: this.firstAirDate,
       genreIds: this.genreIds,
       id: this.id,

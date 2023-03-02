@@ -306,6 +306,23 @@ class MockTvSeriesRepository extends _i1.Mock
           ),
         )),
       ) as _i7.Future<_i2.Either<_i8.Failure, _i13.TvSeriesDetail>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>
+      getTvSeriesRecommendations(int? id) => (super.noSuchMethod(
+            Invocation.method(
+              #getTvSeriesRecommendations,
+              [id],
+            ),
+            returnValue:
+                _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>.value(
+                    _FakeEither_0<_i8.Failure, List<_i12.TvSeries>>(
+              this,
+              Invocation.method(
+                #getTvSeriesRecommendations,
+                [id],
+              ),
+            )),
+          ) as _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>);
 }
 
 /// A class which mocks [MovieRemoteDataSource].
@@ -516,6 +533,16 @@ class MockTvSeriesRemoteDataSource extends _i1.Mock
           ),
         )),
       ) as _i7.Future<_i4.TvSeriesDetailModel>);
+  @override
+  _i7.Future<List<_i21.TvSeriesModel>> getTvSeriesRecommendations(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTvSeriesRecommendations,
+          [id],
+        ),
+        returnValue:
+            _i7.Future<List<_i21.TvSeriesModel>>.value(<_i21.TvSeriesModel>[]),
+      ) as _i7.Future<List<_i21.TvSeriesModel>>);
 }
 
 /// A class which mocks [Client].

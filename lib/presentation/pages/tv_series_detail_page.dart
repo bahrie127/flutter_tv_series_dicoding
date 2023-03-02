@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/tv_series_detail.dart';
-import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+
+import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
+import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
 
 class TvSeriesDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/detail-series';
@@ -26,8 +28,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
     Future.microtask(() {
       Provider.of<TvSeriesDetailNotifier>(context, listen: false)
           .fetchTvSeriesDetail(widget.id);
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+  
     });
   }
 
@@ -41,10 +42,11 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
               child: CircularProgressIndicator(),
             );
           } else if (provider.seriesState == RequestState.Loaded) {
-            final movie = provider.series;
+            final tvSeries = provider.series;
             return SafeArea(
               child: DetailContent(
-                movie,
+                series: tvSeries,
+                recommendations: provider.tvSeriesRecommendations,
               ),
             );
           } else {
@@ -58,10 +60,13 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
 
 class DetailContent extends StatelessWidget {
   final TvSeriesDetail series;
+  final List<TvSeries> recommendations;
 
-  DetailContent(
-    this.series,
-  );
+  DetailContent({
+    Key? key,
+    required this.series,
+    required this.recommendations,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +142,42 @@ class DetailContent extends StatelessWidget {
                               style: kHeading6,
                             ),
                             //recommendation tv series
+                            Container(
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final movie = recommendations[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(
+                                          context,
+                                          TvSeriesDetailPage.ROUTE_NAME,
+                                          arguments: movie.id,
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                          placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                itemCount: recommendations.length,
+                              ),
+                            ),
                           ],
                         ),
                       ),
