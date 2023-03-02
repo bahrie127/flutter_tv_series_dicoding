@@ -1,15 +1,34 @@
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
 import 'package:ditonton/presentation/widgets/sub_heading.dart';
+import 'package:ditonton/presentation/widgets/tv_series_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'about_page.dart';
 import 'home_movie_page.dart';
 import 'search_page.dart';
 import 'watchlist_movies_page.dart';
 
-class TvSeriesPage extends StatelessWidget {
+class TvSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/series';
   const TvSeriesPage({Key? key}) : super(key: key);
+
+  @override
+  State<TvSeriesPage> createState() => _TvSeriesPageState();
+}
+
+class _TvSeriesPageState extends State<TvSeriesPage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => Provider.of<PopularTvSeriesNotifier>(context, listen: false)
+        ..fetchPopularTvSeries(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +99,24 @@ class TvSeriesPage extends StatelessWidget {
               // tv series sedang tayang
               SubHeading(
                 title: 'Popular',
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(
+                    context, PopularTvSeriesPage.ROUTE_NAME),
               ),
               // tv series popular
+              Consumer<PopularTvSeriesNotifier>(
+                builder: (context, data, child) {
+                  final state = data.state;
+                  if (state == RequestState.Loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state == RequestState.Loaded) {
+                    return TvSeriesList(data.series);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
+              ),
               SubHeading(
                 title: 'Top Rated',
                 onTap: () {},

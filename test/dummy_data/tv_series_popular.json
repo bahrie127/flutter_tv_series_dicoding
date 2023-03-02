@@ -1,0 +1,27 @@
+{
+    "page": 1,
+    "results": [
+      {
+        "backdrop_path": "/img_path.jpg",
+        "first_air_date": "2000-11-11",
+        "genre_ids": [
+          1,
+          2
+        ],
+        "id": 123,
+        "name": "movie_title",
+        "origin_country": [
+          "ID"
+        ],
+        "original_language": "id",
+        "original_name": "movie_title",
+        "overview": "lorem ipsum 123",
+        "popularity": 144,
+        "poster_path": "/poster_path.jpg",
+        "vote_average": 9.5,
+        "vote_count": 123
+      }
+    ],
+    "total_pages": 1,
+    "total_results": 1
+  }
