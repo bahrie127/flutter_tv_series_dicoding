@@ -33,8 +33,15 @@ import 'package:ditonton/presentation/provider/top_rate_tv_series_notifier.dart'
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_series_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/provider/watchlist_tv_series_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+
+import 'data/datasources/tv_series_local_data_source.dart';
+import 'domain/usecases/get_tv_series_watchlist_status.dart';
+import 'domain/usecases/get_watchlist_tv_series.dart';
+import 'domain/usecases/remove_tv_series_watchlist.dart';
+import 'domain/usecases/save_tv_series_watchlist.dart';
 
 final locator = GetIt.instance;
 
@@ -86,6 +93,9 @@ void init() {
     () => TvSeriesDetailNotifier(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
+      getTvSeriesWatchListStatus: locator(),
+      saveTvSeriesWatchlist: locator(),
+      removeTvSeriesWatchlist: locator(),
     ),
   );
 
@@ -104,6 +114,12 @@ void init() {
   locator.registerFactory(
     () => SearchTvSeriesNotifier(
       searchTvSeries: locator(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => WatchlistTvSeriesNotifier(
+      getWatchlistTvSeries: locator(),
     ),
   );
 
@@ -150,6 +166,26 @@ void init() {
       repository: locator(),
     ),
   );
+  locator.registerLazySingleton(
+    () => GetTvSeriesWatchListStatus(
+      repository: locator(),
+    ),
+  );
+  locator.registerLazySingleton(
+    () => SaveTvSeriesWatchlist(
+      repository: locator(),
+    ),
+  );
+  locator.registerLazySingleton(
+    () => RemoveTvSeriesWatchlist(
+      repository: locator(),
+    ),
+  );
+  locator.registerLazySingleton(
+    () => GetWatchlistTvSeries(
+      repository: locator(),
+    ),
+  );
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
@@ -162,6 +198,7 @@ void init() {
   locator.registerLazySingleton<TvSeriesRepository>(
     () => TvSeriesRepositoryImpl(
       remoteDataSource: locator(),
+      localDataSource: locator(),
     ),
   );
 
@@ -172,6 +209,8 @@ void init() {
       () => TvSeriesRemoteDataSourceImpl(client: locator()));
   locator.registerLazySingleton<MovieLocalDataSource>(
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
+  locator.registerLazySingleton<TvSeriesLocalDataSource>(
+      () => TvSeriesLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
