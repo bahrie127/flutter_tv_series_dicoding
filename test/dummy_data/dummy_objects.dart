@@ -2,6 +2,7 @@ import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -57,3 +58,14 @@ final testMovieMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+final testTvSeriesDetail = TvSeriesDetail(
+  genres: [Genre(id: 1, name: 'Action')],
+  id: 66732,
+  name: "Stranger Things",
+  numberOfEpisodes: 34,
+  numberOfSeasons: 4,
+  overview: "Stranger Things",
+  posterPath: "/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+  voteAverage: 8.6,
+);
