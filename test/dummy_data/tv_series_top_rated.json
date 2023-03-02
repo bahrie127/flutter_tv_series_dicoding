@@ -1,0 +1,26 @@
+{
+    "page": 16,
+    "results": [
+        {
+            "backdrop_path": "/imgpath123.jpg",
+            "first_air_date": "321123",
+            "genre_ids": [
+                23
+            ],
+            "id": 321123,
+            "name": "eh lul",
+            "origin_country": [
+                "nd"
+            ],
+            "original_language": "nd",
+            "original_name": "eh lul",
+            "overview": "lorem 7421",
+            "popularity": 33.213,
+            "poster_path": "/adojhp.jpg",
+            "vote_average": 0.1,
+            "vote_count": 321
+        }
+    ],
+    "total_pages": 8,
+    "total_results": 6
+}

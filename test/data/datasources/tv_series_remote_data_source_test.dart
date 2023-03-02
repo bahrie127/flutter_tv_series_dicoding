@@ -50,4 +50,65 @@ void main() {
       expect(() => call, throwsA(isA<ServerException>()));
     });
   });
+
+  group('get Top Rated TV Series', () {
+    final tTvSeriesList = TvSeriesResponse.fromJson(
+            json.decode(readJson('dummy_data/tv_series_top_rated.json')))
+        .tvSeriesList;
+
+    test(
+        'should return list of top rated TV Series when response is success (200)',
+        () async {
+      // arrange
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY')))
+          .thenAnswer((_) async => http.Response(
+              readJson('dummy_data/tv_series_top_rated.json'), 200));
+      // act
+      final result = await dataSource.getTopRatedTvSeries();
+      // assert
+      expect(result, tTvSeriesList);
+    });
+
+    test(
+        'should throw a ServerException when the response code is 404 or other',
+        () async {
+      // arrange
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY')))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+      // act
+      final call = dataSource.getTopRatedTvSeries();
+      // assert
+      expect(() => call, throwsA(isA<ServerException>()));
+    });
+  });
+
+  group('get Airing Today TV Series', () {
+    final tTvSeriesList = TvSeriesResponse.fromJson(
+            json.decode(readJson('dummy_data/tv_series_airing_today.json')))
+        .tvSeriesList;
+
+    test(
+        'should return list of Airing Today TV Series when response code is 200 ',
+        () async {
+      // arrange
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/airing_today?$API_KEY')))
+          .thenAnswer((_) async => http.Response(
+              readJson('dummy_data/tv_series_airing_today.json'), 200));
+      // act
+      final result = await dataSource.getAiringTvSeries();
+      // assert
+      expect(result, tTvSeriesList);
+    });
+
+    test('should throw ServerException when response code is other than 200',
+        () async {
+      // arrange
+      when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/airing_today?$API_KEY')))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+      // act
+      final call = dataSource.getAiringTvSeries();
+      // assert
+      expect(() => call, throwsA(isA<ServerException>()));
+    });
+  });
 }

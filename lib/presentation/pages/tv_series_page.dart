@@ -1,7 +1,11 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/pages/airing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
+import 'package:ditonton/presentation/provider/airing_tv_series_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
+import 'package:ditonton/presentation/provider/top_rate_tv_series_notifier.dart';
 import 'package:ditonton/presentation/widgets/sub_heading.dart';
 import 'package:ditonton/presentation/widgets/tv_series_list.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +28,14 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<PopularTvSeriesNotifier>(context, listen: false)
-        ..fetchPopularTvSeries(),
-    );
+    Future.microtask(() {
+      Provider.of<PopularTvSeriesNotifier>(context, listen: false)
+        ..fetchPopularTvSeries();
+      Provider.of<AiringTvSeriesNotifier>(context, listen: false)
+        ..fetchAiringTvSeries();
+      Provider.of<TopRatedTvSeriesNotifier>(context, listen: false)
+        ..fetchTopRatedTvSeries();
+    });
   }
 
   @override
@@ -92,11 +100,25 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              SubHeading(
+                title: 'Now Playing',
+                onTap: () =>
+                    Navigator.pushNamed(context, AiringTvSeriesPage.ROUTE_NAME),
               ),
-              // tv series sedang tayang
+              Consumer<AiringTvSeriesNotifier>(
+                builder: (context, data, child) {
+                  final state = data.state;
+                  if (state == RequestState.Loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state == RequestState.Loaded) {
+                    return TvSeriesList(data.series);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
+              ),
               SubHeading(
                 title: 'Popular',
                 onTap: () => Navigator.pushNamed(
@@ -119,9 +141,24 @@ class _TvSeriesPageState extends State<TvSeriesPage> {
               ),
               SubHeading(
                 title: 'Top Rated',
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(
+                    context, TopRatedTvSeriesPage.ROUTE_NAME),
               ),
               //tv series top rated
+              Consumer<TopRatedTvSeriesNotifier>(
+                builder: (context, data, child) {
+                  final state = data.state;
+                  if (state == RequestState.Loading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state == RequestState.Loaded) {
+                    return TvSeriesList(data.series);
+                  } else {
+                    return Text('Failed');
+                  }
+                },
+              ),
             ],
           ),
         ),

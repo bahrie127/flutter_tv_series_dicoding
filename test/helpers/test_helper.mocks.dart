@@ -323,6 +323,40 @@ class MockTvSeriesRepository extends _i1.Mock
               ),
             )),
           ) as _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>
+      getTopRatedTvSeries() => (super.noSuchMethod(
+            Invocation.method(
+              #getTopRatedTvSeries,
+              [],
+            ),
+            returnValue:
+                _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>.value(
+                    _FakeEither_0<_i8.Failure, List<_i12.TvSeries>>(
+              this,
+              Invocation.method(
+                #getTopRatedTvSeries,
+                [],
+              ),
+            )),
+          ) as _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>);
+  @override
+  _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>
+      getAiringTvSeries() => (super.noSuchMethod(
+            Invocation.method(
+              #getAiringTvSeries,
+              [],
+            ),
+            returnValue:
+                _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>.value(
+                    _FakeEither_0<_i8.Failure, List<_i12.TvSeries>>(
+              this,
+              Invocation.method(
+                #getAiringTvSeries,
+                [],
+              ),
+            )),
+          ) as _i7.Future<_i2.Either<_i8.Failure, List<_i12.TvSeries>>>);
 }
 
 /// A class which mocks [MovieRemoteDataSource].
@@ -539,6 +573,26 @@ class MockTvSeriesRemoteDataSource extends _i1.Mock
         Invocation.method(
           #getTvSeriesRecommendations,
           [id],
+        ),
+        returnValue:
+            _i7.Future<List<_i21.TvSeriesModel>>.value(<_i21.TvSeriesModel>[]),
+      ) as _i7.Future<List<_i21.TvSeriesModel>>);
+  @override
+  _i7.Future<List<_i21.TvSeriesModel>> getTopRatedTvSeries() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTopRatedTvSeries,
+          [],
+        ),
+        returnValue:
+            _i7.Future<List<_i21.TvSeriesModel>>.value(<_i21.TvSeriesModel>[]),
+      ) as _i7.Future<List<_i21.TvSeriesModel>>);
+  @override
+  _i7.Future<List<_i21.TvSeriesModel>> getAiringTvSeries() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAiringTvSeries,
+          [],
         ),
         returnValue:
             _i7.Future<List<_i21.TvSeriesModel>>.value(<_i21.TvSeriesModel>[]),
