@@ -54,6 +54,12 @@ Jika kamu menerapkan modular pada project, Anda dapat memanfaatkan berkas `test.
     Proses ini akan men-*generate* berkas `lcov.info` dan folder `coverage` terkait dengan laporan coverage.
 4. Tunggu proses testing selesai hingga muncul web terkait laporan coverage.
 
+    ```
+    genhtml coverage/lcov.info -o coverage/html
+
+    open coverage/html/index.html
+    ```
+
 5. Generate Mocks
     ```
     flutter pub run build_runner build --delete-conflicting-outputs
