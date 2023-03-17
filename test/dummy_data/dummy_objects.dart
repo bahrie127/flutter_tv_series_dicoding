@@ -92,23 +92,22 @@ final testTvSeries = TvSeries(
 final testTvSeriesList = [testTvSeries];
 
 final testTvSeriesTable = TvSeriesTable(
-  id: 123,
-  name: "fsdafs",
-  posterPath: "fsdafs",
-  overview: "fsdafs",
+  id: 111,
+  name: "the last of ...",
+  posterPath: "gambar.jpg",
+  overview: "bagus",
 );
 
 final testTvSeriesMap = {
-  'id': 123,
-  'overview': 'fsdafs',
-  'posterPath': 'fsdafs',
-  'name': 'fsdafs',
+  'id': 111,
+  'overview': 'bagus',
+  'posterPath': 'gambar.jpg',
+  'title': 'the last of ...',
 };
 
 final testWatchlistTvSeries = TvSeries.watchlist(
-  id: 123,
-  name: "fsdafs",
-  posterPath: "fsdafs",
-  overview: "fsdafs",
+  id: 111,
+  name: "the last of ...",
+  posterPath: "gambar.jpg",
+  overview: "bagus",
 );
-

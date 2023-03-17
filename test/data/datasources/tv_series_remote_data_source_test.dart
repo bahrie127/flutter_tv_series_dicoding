@@ -21,17 +21,63 @@ void main() {
     dataSource = TvSeriesRemoteDataSourceImpl(client: mockHttpClient);
   });
 
+  String jsonString = '''
+{
+    "page": 1,
+    "results": [
+        {
+            "backdrop_path": "/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg",
+            "first_air_date": "2023-01-15",
+            "genre_ids": [
+                18
+            ],
+            "id": 100088,
+            "name": "The Last of Us",
+            "origin_country": [
+                "US"
+            ],
+            "original_language": "en",
+            "original_name": "The Last of Us",
+            "overview": "Twenty years after modern civilization has been destroyed, Joel, a hardened survivor, is hired to smuggle Ellie, a 14-year-old girl, out of an oppressive quarantine zone. What starts as a small job soon becomes a brutal, heartbreaking journey, as they both must traverse the United States and depend on each other for survival.",
+            "popularity": 3617.715,
+            "poster_path": "/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg",
+            "vote_average": 8.8,
+            "vote_count": 2688
+        },
+        {
+            "backdrop_path": "/xgZ9AhvXqi9aSDWzCpoC9JAkLPY.jpg",
+            "first_air_date": "2019-01-01",
+            "genre_ids": [
+                35
+            ],
+            "id": 85425,
+            "name": "Dear Heirs",
+            "origin_country": [
+                "HU"
+            ],
+            "original_language": "hu",
+            "original_name": "Drága örökösök",
+            "overview": "Hungarian remake of the Bulgarian series about a disconnect family living together in order to get an inheritance.",
+            "popularity": 3248.132,
+            "poster_path": "/xDOUahrwEsgDlejXjZLc9lOljSx.jpg",
+            "vote_average": 5.3,
+            "vote_count": 7
+        }
+    ],
+    "total_pages": 7306,
+    "total_results": 146107
+}
+''';
+
   group('get Popular TV Series', () {
-    final tTvSeriesList = TvSeriesResponse.fromJson(
-            json.decode(readJson('dummy_data/tv_series_popular.json')))
-        .tvSeriesList;
+    final tTvSeriesList =
+        TvSeriesResponse.fromJson(json.decode(jsonString)).tvSeriesList;
 
     test('should return list of TV Series Model when the response code is 200',
         () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY')))
-          .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/tv_series_popular.json'), 200));
+          .thenAnswer((_) async => http.Response(jsonString, 200));
       // act
       final result = await dataSource.getPopularTvSeries();
       // assert
@@ -113,17 +159,15 @@ void main() {
   });
 
   group('search TV Series', () {
-    final tSearchResult = TvSeriesResponse.fromJson(
-            json.decode(readJson('dummy_data/tv_series_search.json')))
-        .tvSeriesList;
-    final tQuery = 'bruh';
+    final tSearchResult =
+        TvSeriesResponse.fromJson(json.decode(jsonString)).tvSeriesList;
+    final tQuery = 'Last';
 
-    test('should return list of TV Series when response code is 200', () async {
+    test('should search TV Series when response code is 200', () async {
       // arrange
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$tQuery')))
-          .thenAnswer((_) async =>
-              http.Response(readJson('dummy_data/tv_series_search.json'), 200));
+          .thenAnswer((_) async => http.Response(jsonString, 200));
       // act
       final result = await dataSource.searchTvSeries(tQuery);
       // assert
