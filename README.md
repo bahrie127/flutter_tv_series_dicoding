@@ -1,4 +1,5 @@
 # FLutter TV Series Tugas Dicoding Flutter Developer Expert 
+[![Codemagic build status](https://api.codemagic.io/apps/6415ad02e57cd13223898570/6415ad02e57cd1322389856f/status_badge.svg)](https://codemagic.io/apps/6415ad02e57cd13223898570/6415ad02e57cd1322389856f/latest_build)
 
 Project latihan flutter developer expert tv series app. (saiful.bahri.tl@gmail.com)
 
