@@ -36,7 +36,6 @@ import 'package:ditonton/presentation/bloc/tv_series_search/tv_series_search_blo
 import 'package:ditonton/presentation/bloc/tv_series_top_rated/tv_series_top_rated_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_series_watchlist/tv_series_watchlist_bloc.dart';
 
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 import 'data/datasources/tv_series_local_data_source.dart';
